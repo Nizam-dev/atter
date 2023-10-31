@@ -16,3 +16,9 @@
     <li>password : admin123 </li>
 <ul>
 
+<h5> User </h5>
+<img src="https://github.com/Nizam-dev/atter/blob/master/public/template/images/user.png">
+
+<h5> Admin </h5>
+<img src="https://github.com/Nizam-dev/atter/blob/master/public/template/images/admin.png">
+
