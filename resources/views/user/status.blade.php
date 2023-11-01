@@ -1,55 +1,31 @@
 @extends('template.master')
 @push('css')
+<style>
+    #mine .border-right {
+        min-height: 100vh;
+    }
+    .komentar{
+        font-size: 14px;
+        color: grey;
+    }
+</style>
 @endpush
 @section('content')
+
+
+
+
 <div class="grid-toolbar-center">
     <div class="center-input-search">
-        <div class="input-group-login" id="whathappen">
-            <div class="container">
-                <div class="part-1">
-                    <div class="header">
-                        <div class="home">
-                            <h2>Home </h2>
-                        </div>
-                    </div>
-                    <div class="text">
-                        <form class="" action="{{url('tweet/post')}}" method="post" enctype="multipart/form-data">
-                            @csrf
-                            <div class="inner">
-                                <img src="{{asset('public/image/profil/'.auth()->user()->foto)}}" alt="profile photo">
-                                <label>
-                                    <textarea class="text-whathappen" name="tweet" rows="8" cols="80" maxlength="140"
-                                        placeholder="What's happening?" required></textarea>
-                                </label>
-                            </div>
-                            <!-- tmp image upload place -->
-                            <div class="position-relative upload-photo">
-                                <img class="img-upload-tmp" src="" alt="">
-                                <div class="icon-bg">
-                                    <i id="#upload-delete-tmp" class="fas fa-times position-absolute upload-delete"
-                                        width="100%"></i>
-                                </div>
-                            </div>
-                            <div class="bottom">
-                                <div class="bottom-container">
-                                    <label for="tweet_img" class="ml-3 mb-2 uni">
-                                        <i class="fa fa-image item1-pair"></i>
-                                    </label>
-                                    <input class="tweet_img" id="tweet_img" type="file" name="img" accept="image/*">
-                                </div>
-                                <div class="hash-box">
-                                    <ul style="margin-bottom: 0;"></ul>
-                                </div>
-                                <div>
-
-                                    <span class="bioCount" id="count">140</span>
-                                    <input id="tweet-input" type="submit" value="Tweet" class="submit">
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="part-2"></div>
+        <div class="row">
+            <div class="col-xs-2">
+                <a href="javascript: history.go(-1);"> <i style="font-size:20px;" class="fas fa-arrow-left arrow-style"
+                        aria-hidden="true"></i> </a>
+            </div>
+            <div class="col-xs-10">
+                <span class="home-name">Status</span>
+                <p class="home-tweets-num">
+                    Tweets</p>
             </div>
         </div>
     </div>
@@ -58,10 +34,9 @@
 <div class="my-4 bora">
 </div>
 
-@foreach($data as $tweet)
 
 <div class="box-tweet feed" style="position: relative;">
-    <a href="{{url('status/'.$tweet->id)}}">
+    <a href="">
         <span style="position:absolute; width:100%; height:100%; top:0;left: 0; z-index: 1;"></span>
     </a>
 
@@ -87,6 +62,7 @@
                 <span class="username-twitter">{{'@'.$tweet->username}}</span>
                 <span class="username-twitter">{{$tweet->created_at->diffForHumans()}}</span>
             </p>
+
             <p class="tweet-links">
                 <?php
                 $twtdt = $tweet->tweet_id ?$tweet->rtwt : $tweet->tweet;
@@ -94,6 +70,7 @@
                 $twtdt = preg_replace('/(\@)([^\s]+)/', ' <a href="tag/$2">@$2</a> ', $twtdt );
                 ?>
                 {!! $twtdt  !!} </p>
+
             <p class="mt-post-tweet">
                 @if($tweet->img)
                 <img src="{{url('public/image/post/'.$tweet->img)}}" alt="" class="img-post-tweet">
@@ -145,7 +122,8 @@
 
             <div class="grid-reactions">
                 <div class="grid-box-reaction">
-                    <div class="hover-reaction hover-reaction-comment comment"  onclick="onkomen(this, '{{$tweet->id}}')">
+                    <div class="hover-reaction hover-reaction-comment comment"
+                        onclick="onkomen(this, '{{$tweet->id}}')">
 
                         <i class="far fa-comment" aria-hidden="true"></i>
                         <div class="mt-counter likes-count d-inline-block">
@@ -177,7 +155,7 @@
                                 <a class="dropdown-item"
                                     onclick="undo_retweet(`{{url('undoretweet/'.$tweet->id  ) }}`)">
                                     <i class="fas fa-retweet icon"></i>
-                                   Undo Retweet</a>
+                                    Undo Retweet</a>
                                 @else
                                 <a class="dropdown-item"
                                     onclick="retweet(`{{url('retweet/'.( $tweet->tweet_id ? $tweet->data_rtwt->id : $tweet->id  ))}}`)">
@@ -185,7 +163,8 @@
                                     Retweet</a>
                                 @endif
 
-                                <a class="dropdown-item" onclick="quotertwt(this,'{{$tweet->tweet_id ? $tweet->data_rtwt->id : $tweet->id }}')">
+                                <a class="dropdown-item"
+                                    onclick="quotertwt(this,'{{$tweet->tweet_id ? $tweet->data_rtwt->id : $tweet->id }}')">
                                     <i class="fas fa-pencil-alt icon"></i>
                                     Quote Tweet</a>
                             </div>
@@ -235,28 +214,69 @@
             </div>
         </div>
     </div>
+</div>
 
+<div class="comments">
+    <div class="box-comment feed komentar px-1">
+        Komentar
+    </div>
+  
+    @foreach($tweet->komentar as $komen)
+   <div class="komment">
+      <!-- Komentar -->
+      <div class="box-comment feed py-2">
+        <div class="grid-tweet">
+            <div>
+                <img src="{{url('public/image/profil/'.$komen->foto)}}" alt="" class="img-user-tweet">
+            </div>
 
+            <div>
+                <p>
+                    <strong> {{$komen->name}} </strong>
+                    <span class="username-twitter">{{'@'.$komen->username}} </span>
+                    <span class="username-twitter">{{$komen->created_at->diffForHumans()}}</span>
+                </p>
+                <p>{{$komen->comment}}</p>
+                <div class="grid-reactions">
+                    <div class="grid-box-reaction-rep">
+                        <div class="hover-reaction-rep hover-reaction-comment reply" onclick="onreplykomen(this,'{{$komen->id}}')">
 
+                            <i class="far fa-comment" aria-hidden="true"></i>
+                            <div class="mt-counter likes-count d-inline-block">
+                                <p> {{ $komen->reply->count() == 0 ? '' : $komen->reply->count()  }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- replies -->
+    @foreach($komen->reply as $reply)
+    <div class="box-reply feed">
+        <div class="grid-tweet">
+            <div>
+                <img src="{{url('public/image/profil/'.$reply->foto)}}" alt="" class="img-user-tweet">
+            </div>
+            <div>
+                <p>
+                    <strong> {{$reply->name}}</strong>
+                    <span class="username-twitter">{{'@'.$reply->username}} </span>
+                    <span class="username-twitter">{{$reply->created_at->diffForHumans()}}</span>
+                </p>
+                <p>{{$reply->replie}} </p>
+            </div>
+        </div>
+    </div>
+    @endforeach
+   </div>
+
+    @endforeach
 
 </div>
 
 
 
-@endforeach
+
 
 @endsection
-
-@push('js')
-<script src="{{asset('public/template/js/photo.js')}}"></script>
-
-<script>
-    $(".text-whathappen").on('keyup', () => {
-        var regex = /[#|@](\w+)$/ig;
-        let content = $(".text-whathappen").val()
-        let countcontent = 140 - content.length;
-        $(".bioCount").html(countcontent)
-        console.log(content.match(regex))
-    })
-</script>
-@endpush

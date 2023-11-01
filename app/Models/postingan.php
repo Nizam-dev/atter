@@ -19,7 +19,9 @@ class postingan extends Model
     }
     public function komentar()
     {
-        return $this->hasMany(komentar::class);
+        return $this->hasMany(komentar::class)
+        ->join('users','users.id','komentars.user_id')
+        ->select('komentars.*','users.name','users.username','users.foto');
     }
 
     public function retweet()

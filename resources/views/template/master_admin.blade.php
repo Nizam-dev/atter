@@ -38,6 +38,9 @@
     background-color: rgb(255, 255, 255);
     margin-left: 23%;
 }
+.wrapper-left-elements{
+            font-size: 14px;
+        }
     </style>
     @stack('css')
 </head>

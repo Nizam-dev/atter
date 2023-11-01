@@ -12,4 +12,11 @@ class komentar extends Model
     'comment',
     'postingan_id',
     'user_id',];
+
+    public function reply()
+    {
+        return $this->hasMany(reply::class)
+        ->join('users','users.id','replies.user_id')
+        ->select('replies.*','users.name','users.username','users.foto');
+    }
 }

@@ -8,7 +8,7 @@
     <div style="width: 90%;" class="container">
         <div class="input-group py-2 m-auto pr-5 position-relative">
             <i id="icon-search" class="fas fa-search tryy"></i>
-            <input type="text" class="form-control search-input" placeholder="Search Atter">
+            <input type="text" class="form-control search-input" id="search-input" placeholder="Search Atter">
             <div class="search-result"></div>
         </div>
     </div>

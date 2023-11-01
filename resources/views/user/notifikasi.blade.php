@@ -39,6 +39,9 @@
                                             @case('comment')
                                                 <i style="font-size:30px;" class="far fa-comment ml-2" aria-hidden="true"></i>
                                                 @break
+                                            @case('reply')
+                                                <i style="font-size:30px;" class="far fa-comment ml-2" aria-hidden="true"></i>
+                                                @break
                                             @default
                                        @endswitch
                             </div>
@@ -52,7 +55,7 @@
 
                                 </p>
                                 <p> <a style="font-weight: 700;
-                                    font-size:18px;
+                                    font-size:14px;
                                     position: relative; z-index:1000;" href="{{url('/@'.$notif->username)}}">
                                        {{$notif->name}} </a>
                                        @switch($notif->type)
@@ -68,9 +71,12 @@
                                             @case('comment')
                                                 Comment Your Tweet
                                                 @break
+                                            @case('reply')
+                                                Reply Your Comment
+                                                @break
                                             @default
                                        @endswitch
-                                    <span style="font-weight: 500; font-size:12px;" class="float-right">
+                                    <span style="font-weight: 500; font-size:11px;" class="float-right">
                                         {{$notif->created_at->diffForHumans()}}</span>
                                 </p>
                             </div>

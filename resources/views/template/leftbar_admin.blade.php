@@ -8,7 +8,7 @@
         <a href="{{url('admin')}}">
             <div class="grid-sidebar {{request()->is('admin') ? 'bg-active' :'' }}" style="margin-top: 12px">
                 <div class="icon-sidebar-align">
-                    <img src="{{asset('public/image/icons/tweethome.png')}}" alt="" height="26.25px" width="26.25px" />
+                    <img src="{{asset('public/image/icons/tweethome.png')}}" alt="" height="23.25px" width="23.25px" />
                 </div>
                 <div class="wrapper-left-elements">
                     <a class="{{request()->is('admin') ? 'wrapper-left-active' :'' }}" href="{{url('admin')}}" style="margin-top: 4px;">
@@ -21,7 +21,7 @@
         <a href="{{url('admin/tweet')}}">
             <div class="grid-sidebar {{request()->is('admin/tweet') ? 'bg-active' :'' }}">
                 <div class="icon-sidebar-align">
-                    <img src="{{asset('public/image/icons/edit.png')}}" alt="" height="26.25px" width="26.25px" />
+                    <img src="{{asset('public/image/icons/edit.png')}}" alt="" height="23.25px" width="23.25px" />
                 </div>
                 <div class="wrapper-left-elements">
                     <!-- Username -->
@@ -35,7 +35,7 @@
         <a href="{{url('admin/comments')}}">
             <div class="grid-sidebar {{request()->is('admin/comments') ? 'bg-active' :'' }}">
                 <div class="icon-sidebar-align">
-                    <img src="{{asset('public/image/icons/messages.png')}}" alt="" height="26.25px" width="26.25px" />
+                    <img src="{{asset('public/image/icons/messages.png')}}" alt="" height="23.25px" width="23.25px" />
                 </div>
                 <div class="wrapper-left-elements">
                     <!-- Username -->
@@ -49,7 +49,7 @@
         <a href="{{url('admin/user')}}">
             <div class="grid-sidebar {{request()->is('admin/user') ? 'bg-active' :'' }}">
                 <div class="icon-sidebar-align">
-                    <img src="{{asset('public/image/icons/tweetprof.png')}}" alt="" height="26.25px" width="26.25px" />
+                    <img src="{{asset('public/image/icons/tweetprof.png')}}" alt="" height="23.25px" width="23.25px" />
                 </div>
                 <div class="wrapper-left-elements">
                     <!-- Username -->
@@ -63,7 +63,7 @@
         <a href="{{url('logout')}}">
             <div class="grid-sidebar">
                 <div class="icon-sidebar-align">
-                    <i style="font-size: 26px;" class="fas fa-sign-out-alt"></i>
+                    <i style="font-size: 23px;" class="fas fa-sign-out-alt"></i>
                 </div>
                 <div class="wrapper-left-elements">
                     <a href="{{url('logout')}}" style="margin-top: 4px">

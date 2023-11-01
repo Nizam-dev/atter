@@ -7,11 +7,13 @@ use App\Http\Controllers\User\TweetsController;
 use App\Http\Controllers\User\ProfilController;
 use App\Http\Controllers\User\NotifController;
 use App\Http\Controllers\User\SettingController;
+use App\Http\Controllers\User\StatusController;
 use App\Http\Controllers\User\LRTC;
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 use App\Http\Controllers\Admin\TweetController as AdminTweetController;
 use App\Http\Controllers\Admin\CommentController as AdminCommentController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\Guest\HomeController as GuestHomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,6 +64,10 @@ Route::middleware(['role:admin,user'])->group(function () {
     Route::post('quotetweet/{id}', [LRTC::class,'quote_retweet']);
     Route::get('addfollow/{id}', [LRTC::class,'follow']);
     Route::post('addkomentar/{id}', [LRTC::class,'komentar']);
+    Route::post('replykomentar/{id}', [LRTC::class,'reply']);
     
 });
+Route::get('status/{id}', [StatusController::class,'index']);
+Route::get('search',  [LRTC::class,'search']);
+Route::get('guest',  [GuestHomeController::class,'index']);
 Route::get('/@{username}',  [ProfilController::class,'index']);

@@ -40,8 +40,8 @@
                 <button type="button" id="auto" onclick="" class="signup-btn pri-btn" data-toggle="modal"
                     data-target="#exampleModalCenter">
                     Sign Up</button>
-                    <button type="button" class="signup-btn pri-btn">
-                    Join Guest</button>
+                    <a href="{{url('guest')}}" class="signup-btn pri-btn d-block text-center">
+                    Join Guest</a>
 
 
                 <!-- Modal -->

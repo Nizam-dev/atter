@@ -41,74 +41,13 @@
             <img class="home-img-user" src="{{asset('public/image/profil/'.$user->foto)}}" alt="">
 
 
-            @if(auth()->user()->id == $user->id)
-            <button class="home-edit-button" data-toggle="modal" data-target="#editprofil">Edit Profile</button>
-            @else
-            <?php
-                $pfollwo = false;
-                if($user->followers->where('follower_id',auth()->user()->id)->first()){
-                    $pfollwo = true;
-                }
-            ?>
             
             <button class="home-edit-button
-            {{$pfollwo ? 'following' : 'follow'}}" style="font-weight: 700;" onclick="onfollow(this,'{{$user->id}}')">
-                    {{$pfollwo ? 'Following' : 'Follow'}}
+            follow" style="font-weight: 700;" onclick="">
+                    Follow
                 </button>
-            @endif
 
-            <!-- Modal -->
-            <div class="modal fade" id="editprofil" tabindex="-1" role="dialog" aria-labelledby="editprofilLabel"
-                aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="editprofilLabel">Update Profil</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <form action="{{url('updateprofil')}}" method="post" enctype="multipart/form-data">
-                                    @csrf
-                                    <div class="form-group">
-                                        <label for="">Foto Profil</label>
-                                        <input type="file" class="form-control" name="foto" accept="image/*">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="">Background Profil</label>
-                                        <input type="file" class="form-control" name="bg" accept="image/*">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="">Bio</label>
-                                        <input type="text" class="form-control" name="bio"
-                                            value="{{auth()->user()->bio}}">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="">Location</label>
-                                        <input type="text" class="form-control" name="location"
-                                            value="{{auth()->user()->location}}">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="">Website</label>
-                                        <input type="text" class="form-control" name="website"
-                                            value="{{auth()->user()->website}}">
-                                    </div>
-
-                                    <button type="submit" id="btn-simpan" class="d-none"></button>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" onclick="document.querySelector('#btn-simpan').click()"
-                                class="btn btn-primary">SIMPAN</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+          
 
         </div>
 
@@ -147,16 +86,6 @@
 
 
                         @foreach($followers as $u)
-                        <?php
-                                $imfollow= false;
-                                $followme = false;
-                                if($u->followers->where('follower_id',auth()->user()->id)->first()){
-                                    $imfollow = true;
-                                }
-                                if($u->followings->where('follow_id',auth()->user()->id)->first()){
-                                    $followme = true;
-                                }
-                                ?>
                         <div class="grid-share">
                             <a style="position: relative; z-index:5; color:black" href="wilburpotter">
                                 <img src="{{url('public/image/profil/'.$u->foto)}}" alt="" class="img-share">
@@ -168,15 +97,14 @@
                                     </a>
                                 </p>
                                 <p class="username">{{'@'.$u->username}}
-                                    <span class="ml-1 follows-you {{ $followme ? '' : 'd-none' }}">Follows You</span>
                                 </p>
                                 <p></p>
                             </div>
                             <div>
                                 <button class="follow-btn follow-btn-m 
-                                            {{ $imfollow ? 'following' : 'follow' }}" style="font-weight: 700;"
-                                    onclick="onfollow(this,'{{$u->id}}')">
-                                    {{ $imfollow ? 'Following' : 'Follow' }}
+                                           follow" style="font-weight: 700;"
+                                    onclick="">
+                                   Follow
                                 </button>
                             </div>
                         </div>
@@ -206,16 +134,7 @@
 
 
                         @foreach($following as $u)
-                        <?php
-                                $imfollow= false;
-                                $followme = false;
-                                if($u->followers->where('follower_id',auth()->user()->id)->first()){
-                                    $imfollow = true;
-                                }
-                                if($u->followings->where('follow_id',auth()->user()->id)->first()){
-                                    $followme = true;
-                                }
-                                ?>
+     
                         <div class="grid-share">
                             <a style="position: relative; z-index:5; color:black" href="wilburpotter">
                                 <img src="{{url('public/image/profil/'.$u->foto)}}" alt="" class="img-share">
@@ -227,15 +146,14 @@
                                     </a>
                                 </p>
                                 <p class="username">{{'@'.$u->username}}
-                                    <span class="ml-1 follows-you {{ $followme ? '' : 'd-none' }}">Follows You</span>
                                 </p>
                                 <p></p>
                             </div>
                             <div>
                                 <button class="follow-btn follow-btn-m 
-                                            {{ $imfollow ? 'following' : 'follow' }}" style="font-weight: 700;"
-                                    onclick="onfollow(this,'{{$u->id}}')">
-                                    {{ $imfollow ? 'Following' : 'Follow' }}
+                                            follow" style="font-weight: 700;"
+                                    onclick="">
+                                    Follow
                                 </button>
                             </div>
                         </div>
@@ -302,7 +220,7 @@
                     @if($tweet->tweet_id)
                     <span class="retweed-name"> <i class="fa fa-retweet retweet-name-i" aria-hidden="true"></i>
                         <a style="position: relative; z-index:100; color:rgb(102, 117, 130);" href="">
-                            {{$tweet->user_id == auth()->user()->id ? "You" : $tweet->name}}
+                            {{ $tweet->name}}
                         </a>
                         retweeted
                     </span>
@@ -395,40 +313,14 @@
                                 </div>
                                 <div class="grid-box-reaction">
 
-                                    <?php
-                                        $imretweet = false;
-                                        $dataretweet = $tweet->retweet
-                                        ->where('user_id',auth()->user()->id)
-                                        ->where('rtwt',null)
-                                        ->first();
-                                        if($dataretweet){
-                                        $imretweet = true;
-                                        }
-                                        ?>
+                      
 
                                     <div
-                                        class="hover-reaction hover-reaction-retweet {{ $imretweet  ? 'retweeted' : 'retweet' }} option dropdown">
+                                        class="hover-reaction hover-reaction-retweet retweet option dropdown">
 
-                                        <i class="fas fa-retweet " type="button" id="dretwt-{{$tweet->id}}"
+                                        <i class="fas fa-retweet " type="button" 
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <div class="dropdown-menu" aria-labelledby="dretwt-{{$tweet->id}}">
-
-                                                @if($imretweet )
-                                                <a class="dropdown-item" onclick="">
-                                                    <i class="fas fa-retweet icon"></i>
-                                                    Undo Retweet</a>
-                                                @else
-                                                <a class="dropdown-item"
-                                                    onclick="retweet(`{{url('retweet/'.( $tweet->tweet_id ? $tweet->data_rtwt->id : $tweet->id  ))}}`)">
-                                                    <i class="fas fa-retweet icon"></i>
-                                                    Retweet</a>
-                                                @endif
-
-                                                <a class="dropdown-item"
-                                                    onclick="quotertwt(this,'{{$tweet->tweet_id ? $tweet->data_rtwt->id : $tweet->id }}')">
-                                                    <i class="fas fa-pencil-alt icon"></i>
-                                                    Quote Tweet</a>
-                                            </div>
+                                          
                                         </i>
                                         <div class="mt-counter likes-count d-inline-block">
                                             <p>{{$tweet->retweet->count() == 0 ? '' :  $tweet->retweet->count()}}</p>
@@ -445,17 +337,14 @@
 
                                 </div>
 
-                                <?php
-                                            $imlike = $tweet->likes->where('user_id',auth()->user()->id)->first();
-                                            ?>
+               
 
                                 <div class="grid-box-reaction">
-                                    <a class="hover-reaction hover-reaction-like {{$imlike ? 'unlike-btn' : ''}}"
-                                        onclick="onLike(this,'{{$tweet->id}}')">
+                                    <a class="hover-reaction hover-reaction-like "
+                                        onclick="">
 
-                                        <i class="fa-heart far mt-icon-reaction {{$imlike ? 'd-none' : ''}} "
+                                        <i class="fa-heart far mt-icon-reaction  "
                                             aria-hidden="true"></i>
-                                        <i class="fas fa-heart liked  {{$imlike ? '' : 'd-none'}} "></i>
 
                                         <div class="mt-counter likes-count d-inline-block">
                                             <p>{{$tweet->likes->count() == 0 ? '' : $tweet->likes->count() }}</p>
@@ -514,7 +403,7 @@
                     @if($tweet->tweet_id)
                     <span class="retweed-name"> <i class="fa fa-retweet retweet-name-i" aria-hidden="true"></i>
                         <a style="position: relative; z-index:100; color:rgb(102, 117, 130);" href="">
-                            {{$tweet->user_id == auth()->user()->id ? "You" : $tweet->name}}
+                            {{$tweet->name}}
                         </a>
                         retweeted
                     </span>
@@ -606,40 +495,13 @@
                                 </div>
                                 <div class="grid-box-reaction">
 
-                                    <?php
-                                        $imretweet = false;
-                                        $dataretweet = $tweet->retweet
-                                        ->where('user_id',auth()->user()->id)
-                                        ->where('rtwt',null)
-                                        ->first();
-                                        if($dataretweet){
-                                        $imretweet = true;
-                                        }
-                                        ?>
-
+ 
                                     <div
-                                        class="hover-reaction hover-reaction-retweet {{ $imretweet  ? 'retweeted' : 'retweet' }} option dropdown">
+                                        class="hover-reaction hover-reaction-retweet retweet option dropdown">
 
-                                        <i class="fas fa-retweet " type="button" id="dretwt-{{$tweet->id}}"
+                                        <i class="fas fa-retweet " type="button"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <div class="dropdown-menu" aria-labelledby="dretwt-{{$tweet->id}}">
-
-                                                @if($imretweet )
-                                                <a class="dropdown-item" onclick="">
-                                                    <i class="fas fa-retweet icon"></i>
-                                                    Undo Retweet</a>
-                                                @else
-                                                <a class="dropdown-item"
-                                                    onclick="retweet(`{{url('retweet/'.( $tweet->tweet_id ? $tweet->data_rtwt->id : $tweet->id  ))}}`)">
-                                                    <i class="fas fa-retweet icon"></i>
-                                                    Retweet</a>
-                                                @endif
-
-                                                <a class="dropdown-item"
-                                                    onclick="quotertwt(this,'{{$tweet->tweet_id ? $tweet->data_rtwt->id : $tweet->id }}')">
-                                                    <i class="fas fa-pencil-alt icon"></i>
-                                                    Quote Tweet</a>
-                                            </div>
+                                          
                                         </i>
                                         <div class="mt-counter likes-count d-inline-block">
                                             <p>{{$tweet->retweet->count() == 0 ? '' :  $tweet->retweet->count()}}</p>
@@ -656,17 +518,13 @@
 
                                 </div>
 
-                                <?php
-                                            $imlike = $tweet->likes->where('user_id',auth()->user()->id)->first();
-                                            ?>
 
                                 <div class="grid-box-reaction">
-                                    <a class="hover-reaction hover-reaction-like {{$imlike ? 'unlike-btn' : ''}}"
-                                        onclick="onLike(this,'{{$tweet->id}}')">
+                                    <a class="hover-reaction hover-reaction-like "
+                                        onclick="">
 
-                                        <i class="fa-heart far mt-icon-reaction {{$imlike ? 'd-none' : ''}} "
+                                        <i class="fa-heart far mt-icon-reaction  "
                                             aria-hidden="true"></i>
-                                        <i class="fas fa-heart liked  {{$imlike ? '' : 'd-none'}} "></i>
 
                                         <div class="mt-counter likes-count d-inline-block">
                                             <p>{{$tweet->likes->count() == 0 ? '' : $tweet->likes->count() }}</p>
@@ -714,7 +572,7 @@
                     @if($tweet->tweet_id)
                     <span class="retweed-name"> <i class="fa fa-retweet retweet-name-i" aria-hidden="true"></i>
                         <a style="position: relative; z-index:100; color:rgb(102, 117, 130);" href="">
-                            {{$tweet->user_id == auth()->user()->id ? "You" : $tweet->name}}
+                            {{$tweet->name}}
                         </a>
                         retweeted
                     </span>
@@ -806,40 +664,13 @@
                                 </div>
                                 <div class="grid-box-reaction">
 
-                                    <?php
-                                        $imretweet = false;
-                                        $dataretweet = $tweet->retweet
-                                        ->where('user_id',auth()->user()->id)
-                                        ->where('rtwt',null)
-                                        ->first();
-                                        if($dataretweet){
-                                        $imretweet = true;
-                                        }
-                                        ?>
 
                                     <div
-                                        class="hover-reaction hover-reaction-retweet {{ $imretweet  ? 'retweeted' : 'retweet' }} option dropdown">
+                                        class="hover-reaction hover-reaction-retweet retweet option dropdown">
 
-                                        <i class="fas fa-retweet " type="button" id="dretwt-{{$tweet->id}}"
+                                        <i class="fas fa-retweet " type="button"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <div class="dropdown-menu" aria-labelledby="dretwt-{{$tweet->id}}">
-
-                                                @if($imretweet )
-                                                <a class="dropdown-item" onclick="">
-                                                    <i class="fas fa-retweet icon"></i>
-                                                    Undo Retweet</a>
-                                                @else
-                                                <a class="dropdown-item"
-                                                    onclick="retweet(`{{url('retweet/'.( $tweet->tweet_id ? $tweet->data_rtwt->id : $tweet->id  ))}}`)">
-                                                    <i class="fas fa-retweet icon"></i>
-                                                    Retweet</a>
-                                                @endif
-
-                                                <a class="dropdown-item"
-                                                    onclick="quotertwt(this,'{{$tweet->tweet_id ? $tweet->data_rtwt->id : $tweet->id }}')">
-                                                    <i class="fas fa-pencil-alt icon"></i>
-                                                    Quote Tweet</a>
-                                            </div>
+                                        
                                         </i>
                                         <div class="mt-counter likes-count d-inline-block">
                                             <p>{{$tweet->retweet->count() == 0 ? '' :  $tweet->retweet->count()}}</p>
@@ -856,17 +687,13 @@
 
                                 </div>
 
-                                <?php
-                                            $imlike = $tweet->likes->where('user_id',auth()->user()->id)->first();
-                                            ?>
 
                                 <div class="grid-box-reaction">
-                                    <a class="hover-reaction hover-reaction-like {{$imlike ? 'unlike-btn' : ''}}"
-                                        onclick="onLike(this,'{{$tweet->id}}')">
+                                    <a class="hover-reaction hover-reaction-like "
+                                        onclick="">
 
-                                        <i class="fa-heart far mt-icon-reaction {{$imlike ? 'd-none' : ''}} "
+                                        <i class="fa-heart far mt-icon-reaction  "
                                             aria-hidden="true"></i>
-                                        <i class="fas fa-heart liked  {{$imlike ? '' : 'd-none'}} "></i>
 
                                         <div class="mt-counter likes-count d-inline-block">
                                             <p>{{$tweet->likes->count() == 0 ? '' : $tweet->likes->count() }}</p>

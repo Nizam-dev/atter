@@ -10,6 +10,8 @@ use App\Models\postingan;
 use App\Models\retweet;
 use App\Models\follow;
 use App\Models\komentar;
+use App\Models\reply;
+use App\Models\User;
 
 class LRTC extends Controller
 {
@@ -125,8 +127,58 @@ class LRTC extends Controller
         ]);
         return redirect()->back()->with('success',"Anda telah menambah komentar");
 
+    }
 
+    public function reply($id, Request $request)
+    {
+        $komen = komentar::find($id);
+        reply::create([
+            'replie'=>$request->replie,
+            'user_id'=>auth()->user()->id,
+            'komentar_id'=>$id
+        ]);
+
+        notif::create([
+            'notify_for'=>$komen->user_id,
+            'notify_from'=>auth()->user()->id,
+            'target'=>$komen->postingan_id,
+            'type'=>'reply',
+        ]);
+        return redirect()->back()->with('success',"Anda telah menambah reply");
+        
     }
    
+
+    public function search(Request $request)
+    {
+        $search = $request->search;
+        $users = User::
+        where(function ($query) use($search) {
+            $query->where('username','like','%'.$search.'%')
+            ->orWhere('name','like','%'.$search.'%');
+        })
+        ->where('role','!=','admin')->get();
+
+        $dataresult = ' <div class="nav-right-down-wrap"><ul> ';
+        foreach ($users as $user) {
+            $dataresult = $dataresult.' 
+            <li >
+                    <div class="nav-right-down-inner">
+                        <div class="nav-right-down-left">
+                            <a class="" href="'.$user->username.'"><img class="mt-2 ml-1" src="'.url('public/image/profil/'.$user->foto).'"></a>
+                        </div>
+                        <div class="nav-right-down-right">
+                            <div class="nav-right-down-right-headline">
+                                <a class="" href="'.url('/@').$user->username.'">'. $user->name.'</a>
+                                <span class="d-block">@'. $user->username.'</span>
+                            </div>
+                        </div>
+                    </div> 
+            </li> ';
+        }
+        $dataresult = $dataresult . ' </ul></div> ';
+    
+        return response()->json(['data'=>$users,'dataresult'=>$dataresult]);
+    }
 
 }

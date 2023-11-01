@@ -1,5 +1,11 @@
 @extends('template.master')
-
+@push('css')
+<style>
+    .textarea , .textarea::hover {
+        font-size: 13px;
+    }
+</style>
+@endpush
 @section('content')
 <div class="grid-toolbar-center">
     <div class="center-input-search">
