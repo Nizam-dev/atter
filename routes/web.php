@@ -42,8 +42,17 @@ Auth::routes(['login'=>false,'register'=>false]);
 Route::middleware(['role:admin'])->group(function () {
     Route::get('admin', [AdminHomeController::class,'index']);
     Route::get('admin/tweet', [AdminTweetController::class,'index']);
+    Route::get('admin/tweet/{id}', [AdminTweetController::class,'edit']);
+    Route::post('admin/tweet/{id}', [AdminTweetController::class,'update']);
+    Route::get('admin/tweetdelete/{id}', [AdminTweetController::class,'delete']);
     Route::get('admin/comments', [AdminCommentController::class,'index']);
+    Route::get('admin/comments/{id}', [AdminCommentController::class,'edit']);
+    Route::post('admin/comments/{id}', [AdminCommentController::class,'update']);
+    Route::get('admin/commentsdelete/{id}', [AdminCommentController::class,'delete']);
     Route::get('admin/user', [AdminUserController::class,'index']);
+    Route::get('admin/user/{id}', [AdminUserController::class,'edit']);
+    Route::post('admin/user/{id}', [AdminUserController::class,'update']);
+    Route::get('admin/userdelete/{id}', [AdminUserController::class,'delete']);
 
 });
 

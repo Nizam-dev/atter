@@ -17,4 +17,21 @@ class CommentController extends Controller
         ->get();
         return view('admin.komentar',compact('data'));
     }
+
+    public function edit($id)
+    {
+       $data = komentar::findOrFail($id);
+       return view('admin.komentar-edit',compact('data'));
+    }
+
+    public function update($id, Request $request)
+    {
+        komentar::where("id",$id)->update(['comment'=>$request->comment]);
+        return redirect("admin/comments")->with('success','Komentar  telah diedit');
+    }
+    public function delete($id)
+    {
+        komentar::where("id",$id)->delete();
+        return redirect("admin/comments")->with('success','Komentar  telah dihapus');
+    }
 }

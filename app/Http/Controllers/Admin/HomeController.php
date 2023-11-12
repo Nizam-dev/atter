@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\postingan;
 use App\Models\komentar;
+use App\Models\tweet;
 
 class HomeController extends Controller
 {
@@ -14,7 +15,7 @@ class HomeController extends Controller
     {
         $data = [
             'komentar' => komentar::count(),
-            'postingan' => postingan::count(),
+            'postingan' => tweet::count(),
             'user' => User::count(),
         ];
         return view('admin.home',compact('data'));

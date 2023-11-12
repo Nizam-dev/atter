@@ -36,7 +36,13 @@
     display: grid;
     grid-template-columns: 100% auto;
     background-color: rgb(255, 255, 255);
-    margin-left: 23%;
+    margin-left: 2%;
+}
+
+@media (min-width: 1200px) { 
+    #mine .grid-posts {
+    margin-left: 23% !important;
+}
 }
 .wrapper-left-elements{
             font-size: 14px;

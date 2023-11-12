@@ -25,8 +25,12 @@ class LoginRegister extends Controller
         if(User::where('email',$data['email'])->first()){
             return redirect()->back()->with('error',"Gagal, Email Sudah terdaftar");
         }
-        $cekUsername =  User::where('name',$data['name'])->count();
-        $data['username'] =  $cekUsername == 0 ? Str::slug($data['name']) : Str::slug($data['name'].'-'.$cekUsername);
+        $findusername = User::where('username',$data['username'])->first();
+        if($findusername){
+            return redirect()->back()->with("error","Username ".$data['username']." sudah digunakan");
+        }
+        // $cekUsername =  User::where('name',$data['name'])->count();
+        // $data['username'] =  $cekUsername == 0 ? Str::slug($data['name']) : Str::slug($data['name'].'-'.$cekUsername);
         $data['password'] = bcrypt($data['password']);
         $data['role'] = 'user';
         User::create($data);

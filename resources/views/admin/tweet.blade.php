@@ -9,6 +9,7 @@
             <h5>Tweets</h5>
 
 
+            <div class="table-responsive">
             <table class="table table-striped" id="example">
                 <thead>
                     <tr>
@@ -16,6 +17,7 @@
                         <th scope="col">Username</th>
                         <th scope="col">Tweet</th>
                         <th scope="col">Img</th>
+                        <th scope="col">Opsi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,10 +33,15 @@
                                 <span>-</span>
                                 @endif
                             </td>
+                            <td>
+                            <a href="{{url('admin/tweet/'.$t->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
+                            <a href="{{url('admin/tweetdelete/'.$t->postingan_id)}}" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a >
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
+            </div>
 
 
         </div>

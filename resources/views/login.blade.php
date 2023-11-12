@@ -10,6 +10,23 @@
     <link rel="stylesheet" href="{{asset('public/template/css/all.min.css')}}">
     <script src="{{asset('public/template/js/jquery-3.5.1.min.js')}}"></script>
     <link rel="stylesheet" href="{{asset('public/template/toastr.css')}}">
+    <style>
+        @media (max-width: 1200px){
+            .twt-features {
+    width: auto;
+    height: 40vh;
+    background-size: 180%;
+}
+.twt-main {
+    display: grid;
+    min-height: 600px;
+}
+.twt-login {
+    width: auto;
+    height: 60vh;
+}
+        }
+    </style>
 
 
     <link rel="shortcut icon" type="image/png" href="assets/images/twitter.svg">
@@ -63,6 +80,10 @@
                                     <div class="form-group">
                                         <input type="text" name="name" class="form-control" 
                                             aria-describedby="emailHelp" placeholder="Full Name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" name="username" class="form-control" 
+                                            aria-describedby="emailHelp" placeholder="UserName" required>
                                     </div>
                                     <div class="form-group" >
 

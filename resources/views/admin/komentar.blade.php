@@ -9,28 +9,37 @@
             <h5>Tweets</h5>
 
 
-            <table class="table table-striped" id="example">
-                <thead>
-                    <tr>
-                        <th scope="col">No</th>
-                        <th scope="col">Username</th>
-                        <th scope="col">Comment on</th>
-                        <th scope="col">Message</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($data as $n=>$t)
+            <div class="table-responsive">
+                <table class="table table-striped" id="example">
+                    <thead>
+                        <tr>
+                            <th scope="col">No</th>
+                            <th scope="col">Username</th>
+                            <th scope="col">Comment on</th>
+                            <th scope="col">Message</th>
+                            <th scope="col">Opsi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($data as $n=>$t)
                         <tr>
                             <td>{{$n+1}}</td>
                             <td>{{'@'.$t->from}}</td>
                             <td>{{'@'.$t->to}}</td>
                             <td>
-                              {{$t->comment}}
+                                {{$t->comment}}
+                            </td>
+                            <td>
+                                <a href="{{url('admin/comments/'.$t->id)}}" class="btn btn-sm btn-warning"><i
+                                        class="fa fa-edit"></i></a>
+                                <a href="{{url('admin/commentsdelete/'.$t->id)}}" class="btn btn-sm btn-danger"><i
+                                        class="fa fa-trash"></i></a>
                             </td>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
 
 
         </div>

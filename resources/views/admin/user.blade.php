@@ -9,6 +9,7 @@
             <h5>Tweets</h5>
 
 
+            <div class="table-responsive">
             <table class="table table-striped" id="example">
                 <thead>
                     <tr>
@@ -17,6 +18,10 @@
                         <th scope="col">Username</th>
                         <th scope="col">Email</th>
                         <th scope="col">Foto</th>
+                        <th scope="col">Bio</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">Website</th>
+                        <th scope="col">Opsi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -30,11 +35,19 @@
                             <td>
                                 <img src="{{url('public/image/profil/'.$t->foto)}}" alt="" srcset="" width="35px" height="35px"  class="rounded-circle">
                             </td>
-                        
+                            <td>{{$t->bio}}</td>
+                            <td>{{$t->location}}</td>
+                            <td>{{$t->website}}</td>
+
+                            <td>
+                            <a href="{{url('admin/user/'.$t->id)}}" class="btn btn-sm btn-warning mb-1"><i class="fa fa-edit"></i></a>
+                            <a href="{{url('admin/userdelete/'.$t->id)}}" class="btn btn-sm btn-danger mb-1"><i class="fa fa-trash"></i></a >
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
+            </div>
 
 
         </div>
