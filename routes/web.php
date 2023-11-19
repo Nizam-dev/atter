@@ -64,6 +64,8 @@ Route::middleware(['role:admin,user'])->group(function () {
     Route::post('setting/password', [SettingController::class,'password']);
     Route::post('setting/email', [SettingController::class,'email']);
     Route::post('tweet/post', [TweetsController::class,'post']);
+    Route::post('tweet/update/{id}', [TweetsController::class,'update']);
+    Route::get('tweet/delete/{id}', [TweetsController::class,'delete']);
     Route::post('updateprofil',  [ProfilController::class,'update']);
 
     

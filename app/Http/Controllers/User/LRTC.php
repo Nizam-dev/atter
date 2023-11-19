@@ -62,9 +62,9 @@ class LRTC extends Controller
 
     public function undo_retweet($id)
     {
-        $posting = retweet::join('postingans','postingans.id','retweets.tweet_id')
+        $posting = retweet::join('postingans','postingans.id','retweets.postingan_id')
         ->where('retweets.tweet_id',$id)
-        ->where('user_id',auth()->user()->id)->first();
+        ->where('postingans.user_id',auth()->user()->id)->first();
         $postingan_id = $posting->postingan_id;
 
         retweet::where('postingan_id',$postingan_id)->delete();

@@ -5,7 +5,8 @@
     .box-tweet {
         margin-left: 0 !important;
     }
-    .tweet-links a{
+
+    .tweet-links a {
         color: #0056b3;
     }
 </style>
@@ -50,11 +51,11 @@
                     $pfollwo = true;
                 }
             ?>
-            
+
             <button class="home-edit-button
             {{$pfollwo ? 'following' : 'follow'}}" style="font-weight: 700;" onclick="onfollow(this,'{{$user->id}}')">
-                    {{$pfollwo ? 'Following' : 'Follow'}}
-                </button>
+                {{$pfollwo ? 'Following' : 'Follow'}}
+            </button>
             @endif
 
             <!-- Modal -->
@@ -277,7 +278,7 @@
             </li>
         </ul>
 
-            <!-- user tweet -->
+        <!-- user tweet -->
 
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
@@ -322,15 +323,15 @@
                                 </a>
                                 <span class="username-twitter">{{'@'.$tweet->username}}</span>
                                 <span class="username-twitter">{{$tweet->created_at->diffForHumans()}}</span>
-                            </p>                  
+                            </p>
 
-                                <p class="tweet-links">
-                                    <?php
+                            <p class="tweet-links">
+                                <?php
                                     $twtdt = $tweet->tweet_id ? $tweet->rtwt : $tweet->tweet;
                                     $twtdt = preg_replace('/(\#)([^\s]+)/', ' <a href="tag/$2">#$2</a> ', $twtdt );
                                     $twtdt = preg_replace('/(\@)([^\s]+)/', ' <a href="tag/$2">@$2</a> ', $twtdt );
                                     ?>
-                                    {!! $twtdt  !!} </p>
+                                {!! $twtdt !!} </p>
 
                             <p class="mt-post-tweet">
                                 @if($tweet->img)
@@ -385,11 +386,12 @@
 
                             <div class="grid-reactions">
                                 <div class="grid-box-reaction">
-                                    <div class="hover-reaction hover-reaction-comment comment">
+                                    <div class="hover-reaction hover-reaction-comment comment"
+                                        onclick="onkomen(this, '{{$tweet->id}}')">
 
                                         <i class="far fa-comment" aria-hidden="true"></i>
                                         <div class="mt-counter likes-count d-inline-block">
-                                            <p> </p>
+                                            <p>{{$tweet->komentar->count() == 0 ? '': $tweet->komentar->count()}} </p>
                                         </div>
                                     </div>
                                 </div>
@@ -468,7 +470,28 @@
                                 <div class="grid-box-reaction">
                                     <div class="hover-reaction hover-reaction-comment">
 
-                                        <i class="fas fa-ellipsis-h mt-icon-reaction" aria-hidden="true"></i>
+                                        <i class="fas fa-ellipsis-h mt-icon-reaction" type="button"
+                                            id="dreopt-{{$tweet->id}}" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                            <div class="dropdown-menu" aria-labelledby="dreopt-{{$tweet->id}}">
+                                                <?php
+                                                                $twtdt = $tweet->tweet_id ? $tweet->rtwt : $tweet->tweet;
+                                                            ?>
+                                                @if(auth()->user()->id == $tweet->user_id)
+                                                <a class="dropdown-item"
+                                                    onclick="oneditPost('{{$tweet->id}}','{{$twtdt}}')">
+                                                    <i class="fas fa-edit icon"></i>
+                                                    Edit</a>
+
+                                                <a class="dropdown-item"
+                                                    onclick="ondeletePost(`{{url('tweet/delete/'.$tweet->id)}}`)">
+                                                    <i class="fas fa-trash icon"></i>
+                                                    Delete</a>
+                                                @endif
+
+                                            </div>
+
+                                        </i>
                                     </div>
                                     <div class="mt-counter">
                                         <p></p>
@@ -494,7 +517,7 @@
             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
 
 
-            @foreach($data as $tweet)
+                @foreach($data as $tweet)
                 <?php
                         $notmedia = true;
                         if($tweet->img != null){
@@ -535,14 +558,14 @@
                                 <span class="username-twitter">{{'@'.$tweet->username}}</span>
                                 <span class="username-twitter">{{$tweet->created_at->diffForHumans()}}</span>
                             </p>
-                            
+
                             <p class="tweet-links">
                                 <?php
                                 $twtdt = $tweet->tweet_id ?$tweet->rtwt : $tweet->tweet;
                                 $twtdt = preg_replace('/(\#)([^\s]+)/', ' <a href="tag/$2">#$2</a> ', $twtdt );
                                 $twtdt = preg_replace('/(\@)([^\s]+)/', ' <a href="tag/$2">@$2</a> ', $twtdt );
                                 ?>
-                                {!! $twtdt  !!} </p>
+                                {!! $twtdt !!} </p>
                             <p class="mt-post-tweet">
                                 @if($tweet->img)
                                 <img src="{{url('public/image/post/'.$tweet->img)}}" alt="" class="img-post-tweet">
@@ -596,11 +619,12 @@
 
                             <div class="grid-reactions">
                                 <div class="grid-box-reaction">
-                                    <div class="hover-reaction hover-reaction-comment comment">
+                                    <div class="hover-reaction hover-reaction-comment comment"
+                                        onclick="onkomen(this, '{{$tweet->id}}')">
 
                                         <i class="far fa-comment" aria-hidden="true"></i>
                                         <div class="mt-counter likes-count d-inline-block">
-                                            <p> </p>
+                                            <p>{{$tweet->komentar->count() == 0 ? '': $tweet->komentar->count()}} </p>
                                         </div>
                                     </div>
                                 </div>
@@ -679,7 +703,29 @@
                                 <div class="grid-box-reaction">
                                     <div class="hover-reaction hover-reaction-comment">
 
-                                        <i class="fas fa-ellipsis-h mt-icon-reaction" aria-hidden="true"></i>
+                                        <i class="fas fa-ellipsis-h mt-icon-reaction" type="button"
+                                            id="dreopt-{{$tweet->id}}" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                            <div class="dropdown-menu" aria-labelledby="dreopt-{{$tweet->id}}">
+                                                <?php
+                                                                $twtdt = $tweet->tweet_id ? $tweet->rtwt : $tweet->tweet;
+                                                            ?>
+                                                @if(auth()->user()->id == $tweet->user_id)
+                                                <a class="dropdown-item"
+                                                    onclick="oneditPost('{{$tweet->id}}','{{$twtdt}}')">
+                                                    <i class="fas fa-edit icon"></i>
+                                                    Edit</a>
+
+                                                <a class="dropdown-item"
+                                                    onclick="ondeletePost(`{{url('tweet/delete/'.$tweet->id)}}`)">
+                                                    <i class="fas fa-trash icon"></i>
+                                                    Delete</a>
+                                                @endif
+
+                                            </div>
+
+                                        </i>
+
                                     </div>
                                     <div class="mt-counter">
                                         <p></p>
@@ -704,7 +750,7 @@
             <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
 
 
-            @foreach($datalikes as $tweet)
+                @foreach($datalikes as $tweet)
 
                 <div class="box-tweet feed" style="position: relative;">
                     <a href="{{url('status/'.$tweet->id)}}">
@@ -735,14 +781,14 @@
                                 <span class="username-twitter">{{'@'.$tweet->username}}</span>
                                 <span class="username-twitter">{{$tweet->created_at->diffForHumans()}}</span>
                             </p>
-                            
-                                <p class="tweet-links">
-                                    <?php
+
+                            <p class="tweet-links">
+                                <?php
                                     $twtdt = $tweet->tweet_id ?$tweet->rtwt : $tweet->tweet;
                                     $twtdt = preg_replace('/(\#)([^\s]+)/', ' <a href="tag/$2">#$2</a> ', $twtdt );
                                     $twtdt = preg_replace('/(\@)([^\s]+)/', ' <a href="tag/$2">@$2</a> ', $twtdt );
                                     ?>
-                                    {!! $twtdt  !!} </p>
+                                {!! $twtdt !!} </p>
                             <p class="mt-post-tweet">
                                 @if($tweet->img)
                                 <img src="{{url('public/image/post/'.$tweet->img)}}" alt="" class="img-post-tweet">

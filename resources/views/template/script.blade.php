@@ -112,7 +112,7 @@
         let searc = $("#search-input").val()
         $('.search-result').empty();
         if (searc != '') {
-            axios.post("{{url('search')}}", {
+            axios.get("{{url('search')}}", {
                     'search': searc
                 })
                 .then((res) => {
@@ -122,5 +122,22 @@
         }
 
 
+    })
+    let ondeletePost = (url)=>{
+        window.location.href = url;
+    }
+    let oneditPost = (id, text)=>{
+        $("#modaledittweet").modal("show")
+       
+        $("#modaledittweet form").attr("action",`{{url('tweet/update')}}/${id}`)
+        $("#modaledittweet textarea").val(text)
+        let countcontent = 140 - text.length;
+        $("#modaledittweet .bioCount").html(countcontent)
+    }
+
+    $("#modaledittweet textarea").on('keyup',()=>{
+        let p = $("#modaledittweet textarea").val()
+        let countcontent = 140 - p.length;
+        $("#modaledittweet .bioCount").html(countcontent)
     })
 </script>

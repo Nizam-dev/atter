@@ -29,14 +29,15 @@
             font-size: 14px;
         }
         .grid-tweet p strong{
-            font-size: 12px !important;
+            font-size: 15px !important;
         }
-        #mine p{
+        /* #mine p{
             font-size: 12px;
-        }
+        } */
         #mine .username-twitter, #mine .username  {
-            font-size: 11px;
-        }#mine .box-tweet {
+            font-size: 13px;
+        }
+        #mine .box-tweet {
             border-bottom-left-radius: 3px;
             border-bottom-right-radius: 3px;
             border-bottom: 0.1px solid silver;

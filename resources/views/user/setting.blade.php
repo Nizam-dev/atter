@@ -34,7 +34,11 @@
                             @csrf
                             <div class="form-group">
                                 <label for="">Email</label>
-                                <input type="text" class="form-control" name='email' value="{{auth()->user()->email}}" required>
+                                <input type="email" class="form-control" name='email' value="{{auth()->user()->email}}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Username</label>
+                                <input type="text" class="form-control" name='username' value="{{auth()->user()->username}}" required>
                             </div>
                             <button type="submit" class="btn btn-sm btn-primary float-right">SIMPAN</button>
                         </form>
