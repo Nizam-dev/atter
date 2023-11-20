@@ -109,7 +109,7 @@
                                        enctype="multipart/form-data">
                                        @csrf
                                        <div class="inner">
-                                           <img src="{{url('public/image/profil/'.auth()->user()->foto)}}"
+                                           <img src="{{auth()->check() ? url('public/image/profil/'.auth()->user()->foto) : ''}}"
                                                alt="profile photo">
                                            <label>
                                                <textarea class="text-whathappen" name="tweet" rows="8" cols="80"
