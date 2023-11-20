@@ -112,9 +112,7 @@
         let searc = $("#search-input").val()
         $('.search-result').empty();
         if (searc != '') {
-            axios.get("{{url('search')}}", {
-                    'search': searc
-                })
+            axios.get("{{url('search?search=')}}"+searc)
                 .then((res) => {
                     $('.search-result').empty();
                     $('.search-result').html(res.data.dataresult);
